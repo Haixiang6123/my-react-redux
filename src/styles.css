@@ -1,0 +1,30 @@
+div {
+    margin-bottom: 8px;
+}
+
+div:last-child {
+    margin-bottom: 0;
+}
+
+button {
+    margin-right: 8px;
+}
+
+button:last-child {
+    margin-right: 0;
+}
+
+.grandFather {
+    padding: 10px;
+    border: 2px solid red;
+}
+
+.father {
+    padding: 10px;
+    border: 2px solid blue;
+}
+
+.son {
+    padding: 10px;
+    border: 2px solid black;
+}

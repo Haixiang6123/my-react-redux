@@ -5,7 +5,7 @@ const Provider = ({store, children}) => {
   const contextValue = {store}
 
   useEffect(() => {
-    store.subscribe()
+    // store.subscribe()
   }, [store])
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>

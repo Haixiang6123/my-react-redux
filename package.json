@@ -39,6 +39,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.13.15",
     "customize-cra": "^1.0.0",
+    "less-loader": "^8.1.1",
     "react-app-rewired": "^2.1.8"
   }
 }

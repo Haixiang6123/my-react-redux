@@ -1,5 +1,5 @@
 import React from 'react'
-import {useContext, useEffect, useState} from 'react'
+import {useContext, useEffect, useState, useMemo} from 'react'
 import shallowEquals from '../utils/shallowEquals'
 import Context from './Context'
 
@@ -10,9 +10,13 @@ const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponent) => {
     const [counter, updateCounter] = useState(1)
 
     // 获取当前的 store，并获取 mapStateToProps，看情况传给下一个组件
-    const curtStoreState = mapStateToProps ? mapStateToProps(contextValue.store.getState()) : {}
+    const curtStoreState = useMemo(() => {
+      return mapStateToProps ? mapStateToProps(contextValue.store.getState()) : {}
+    }, [])
     // 获取 mapDispatchToProps 的对象，都传给下一个组件
-    const curtDispatchers = mapDispatchToProps ? mapDispatchToProps(contextValue.store.dispatch) : {}
+    const curtDispatchers = useMemo(() => {
+      return mapDispatchToProps ? mapDispatchToProps(contextValue.store.dispatch) : {}
+    }, [])
 
     useEffect(() => {
       return contextValue.store.subscribe(() => {

@@ -11,24 +11,24 @@ const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponent) => {
 
     // 获取当前的 store，并获取 mapStateToProps，看情况传给下一个组件
     const curtStoreState = useMemo(() => {
-      return mapStateToProps ? mapStateToProps(contextValue.store.getState()) : {}
-    }, [])
+      return mapStateToProps ? mapStateToProps(contextValue.store.getState(), props) : {}
+    }, [contextValue.store, props])
     // 获取 mapDispatchToProps 的对象，都传给下一个组件
     const curtDispatchers = useMemo(() => {
-      return mapDispatchToProps ? mapDispatchToProps(contextValue.store.dispatch) : {}
-    }, [])
+      return mapDispatchToProps ? mapDispatchToProps(contextValue.store.dispatch, props) : {}
+    }, [contextValue.store.dispatch, props])
 
     useEffect(() => {
       return contextValue.store.subscribe(() => {
         // 获取最新的 state
-        const newStoreState = mapStateToProps ? mapStateToProps(contextValue.store.getState()) : {}
+        const newStoreState = mapStateToProps ? mapStateToProps(contextValue.store.getState(), props) : {}
         // 只要 dispatch 且有新 state，就 setXXX
         if (!shallowEquals(curtStoreState, newStoreState)) {
           console.log('update')
           updateCounter(counter + 1)
         }
       })
-    }, [contextValue.store, counter])
+    }, [contextValue.store, counter, curtStoreState, props])
 
     return <WrappedComponent {...curtStoreState} {...curtDispatchers} {...props} />
   }
